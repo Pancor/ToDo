@@ -22,3 +22,39 @@ dependencies {
     testCompile "org.testfx:testfx-junit:4.0.15-alpha"
     testCompile 'junit:junit:4.12'
 }
+
+//integration test
+
+sourceSets {
+    testIntegration {
+        compileClasspath += sourceSets.main.output + configurations.testCompile
+        runtimeClasspath += output + compileClasspath + configurations.testRuntime
+    }
+}
+
+configurations {
+    testIntegrationCompile.extendsFrom testCompile
+    testIntegrationRuntime.extendsFrom testRuntime
+}
+
+
+task integrationTest(type: Test) {
+    description = 'Runs integration tests.'
+    group = 'verification'
+
+    testLogging {
+        exceptionFormat = 'full'
+    }
+
+    systemProperty 'ari.user', System.getProperty("ari.user")
+    systemProperty 'ari.pass', System.getProperty("ari.pass")
+    systemProperty 'asterisk.host', System.getProperty("asterisk.host")
+    systemProperty 'asterisk.port', System.getProperty("asterisk.port")
+
+    testClassesDirs = sourceSets.testIntegration.output.classesDirs
+    classpath = sourceSets.testIntegration.runtimeClasspath
+    outputs.upToDateWhen { false }
+    shouldRunAfter test
+}
+
+check.dependsOn integrationTest
