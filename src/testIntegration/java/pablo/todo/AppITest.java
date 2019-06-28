@@ -16,6 +16,7 @@ import org.testfx.framework.junit.ApplicationTest;
 import java.util.concurrent.TimeoutException;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import static org.testfx.api.FxAssert.verifyThat;
 import static org.testfx.matcher.control.LabeledMatchers.hasText;
 
@@ -55,12 +56,60 @@ public class AppITest extends ApplicationTest {
     public void insertNewTaskThenVerifyIfNewTaskIsAdded() {
         ListView<String> tasksView = lookup("#tasksView").query();
         TextArea newTaskView = lookup("#newTaskView").query();
+        String newTask = "New task";
 
-        newTaskView.setText("Test");
+        newTaskView.setText(newTask);
+        clickOn("#addBtn");
+        boolean isNewTaskCorrectlyAdded = tasksView.getItems().contains(newTask);
+        int itemsCount = tasksView.getItems().size();
+
+        assertTrue("Task: " + newTask + "was not added correctly", isNewTaskCorrectlyAdded);
+        assertEquals("TasksView should contain 4 elements given: " + itemsCount, 4, itemsCount);
+    }
+
+    @Test
+    public void deleteTaskThenVerifyIfTaskWasDeleted() {
+        ListView<String> tasksView = lookup("#tasksView").query();
+
+        tasksView.getSelectionModel().selectFirst();
+        clickOn("#deleteBtn");
+        boolean isTask1Deleted = !tasksView.getItems().contains("Task 1");
+        int itemsCount = tasksView.getItems().size();
+
+        assertTrue("Task 1 was not deleted", isTask1Deleted);
+        assertEquals("TasksView should contain 2 elements given: " + itemsCount, 2, itemsCount);
+    }
+
+    @Test
+    public void contentViewShouldContainTaskNameWhenTasksViewElementIsSelected() {
+        ListView<String> tasksView = lookup("#tasksView").query();
+        TextField contentView = lookup("#contentView").query();
+
+        clickOn("Task 1");
+
+        String expected = tasksView.getItems().get(0);
+        String actual = contentView.getText();
+        assertEquals("After selecting tasksView item, contentView should show: " + expected + " but showed: " + actual, expected, actual);
+    }
+
+    @Test
+    public void tryToDeleteItemWithoutSelectingItThenShowAlertDialog() {
+        ListView<String> tasksView = lookup("#tasksView").query();
+
+        clickOn("#deleteBtn");
+        int itemsCount = tasksView.getItems().size();
+
+        assertEquals("TasksView should contain 3 elements given: " + itemsCount, 3, itemsCount);
+    }
+
+    @Test
+    public void tryToAddItemWithoutSpecifyingNameThenShowAlertDialog() {
+        ListView<String> tasksView = lookup("#tasksView").query();
+
         clickOn("#addBtn");
         int itemsCount = tasksView.getItems().size();
 
-        assertEquals("TasksView should contain 4 elements given: " + itemsCount, 4, itemsCount);
+        assertEquals("TasksView should contain 3 elements given: " + itemsCount, 3, itemsCount);
     }
 
     @After
