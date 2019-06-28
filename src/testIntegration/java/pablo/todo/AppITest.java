@@ -13,6 +13,7 @@ import org.junit.Test;
 import org.testfx.api.FxToolkit;
 import org.testfx.framework.junit.ApplicationTest;
 
+import java.io.IOException;
 import java.util.concurrent.TimeoutException;
 
 import static org.junit.Assert.assertEquals;
@@ -25,7 +26,7 @@ public class AppITest extends ApplicationTest {
 
 
     @Override
-    public void start(Stage stage){
+    public void start(Stage stage) throws IOException {
         Parent root = new App.ToDoPane();
         Scene scene = new Scene(root, 700, 400);
         stage.setScene(scene);
@@ -40,7 +41,7 @@ public class AppITest extends ApplicationTest {
 
     @Test
     public void deleteBtnShouldContainText() {
-        verifyThat("#deleteBtn", hasText("Delete task"));
+        verifyThat("#deleteBtn", hasText("Remove task"));
     }
 
     @Test
@@ -55,7 +56,7 @@ public class AppITest extends ApplicationTest {
     @Test
     public void insertNewTaskThenVerifyIfNewTaskIsAdded() {
         ListView<String> tasksView = lookup("#tasksView").query();
-        TextArea newTaskView = lookup("#newTaskView").query();
+        TextField newTaskView = lookup("#newTaskView").query();
         String newTask = "New task";
 
         newTaskView.setText(newTask);
@@ -83,7 +84,7 @@ public class AppITest extends ApplicationTest {
     @Test
     public void contentViewShouldContainTaskNameWhenTasksViewElementIsSelected() {
         ListView<String> tasksView = lookup("#tasksView").query();
-        TextField contentView = lookup("#contentView").query();
+        TextArea contentView = lookup("#contentView").query();
 
         clickOn("Task 1");
 
