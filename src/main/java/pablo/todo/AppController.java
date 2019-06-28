@@ -5,6 +5,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.input.MouseEvent;
 
 
 public class AppController {
@@ -56,7 +57,7 @@ public class AppController {
     }
 
     @FXML
-    private void setContentViewText(ActionEvent actionEvent) {
+    private void setContentViewText(MouseEvent arg0) {
         String text = (String) tasksView.getSelectionModel().getSelectedItem();
         contentView.setText(text);
     }
