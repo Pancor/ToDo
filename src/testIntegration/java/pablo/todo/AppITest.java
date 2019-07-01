@@ -9,22 +9,35 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseButton;
 import javafx.stage.Stage;
 import org.junit.After;
+import org.junit.BeforeClass;
 import org.junit.Test;
 import org.testfx.api.FxToolkit;
 import org.testfx.framework.junit.ApplicationTest;
+import org.testfx.matcher.control.ListViewMatchers;
 import pablo.todo.model.Task;
 
 import java.io.IOException;
 import java.util.concurrent.TimeoutException;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 import static org.testfx.api.FxAssert.verifyThat;
 import static org.testfx.matcher.control.LabeledMatchers.hasText;
 
 public class AppITest extends ApplicationTest {
 
-
+    @BeforeClass
+    public static void setupTestEnvironment() {
+        String headlessProperty = System.getProperty("javaFX_headless", "false");
+        Boolean headless = Boolean.valueOf(headlessProperty);
+        if (headless) {
+            System.out.println("HEADLESS tests");
+            System.setProperty("testfx.robot", "glass");
+            System.setProperty("testfx.headless", "true");
+            System.setProperty("prism.order", "sw");
+        } else {
+            System.setProperty("testfx.headless", "false");
+        }
+    }
 
     @Override
     public void start(Stage stage) throws IOException {
@@ -62,10 +75,9 @@ public class AppITest extends ApplicationTest {
 
         newTaskView.setText(newTask.getName());
         clickOn("#addBtn");
-        boolean isNewTaskCorrectlyAdded = tasksView.getItems().contains(newTask);
         int itemsCount = tasksView.getItems().size();
 
-        assertTrue("Task: " + newTask + " was not added correctly", isNewTaskCorrectlyAdded);
+        assertThat("TasksView does not contain new task", tasksView, ListViewMatchers.hasListCell(newTask));
         assertEquals("TasksView should contain 4 elements given: " + itemsCount, 4, itemsCount);
     }
 
@@ -113,6 +125,20 @@ public class AppITest extends ApplicationTest {
         int itemsCount = tasksView.getItems().size();
 
         assertEquals("TasksView should contain 3 elements given: " + itemsCount, 3, itemsCount);
+    }
+
+    @Test
+    public void updateTaskContentThenCheckIfChangesWereSaved() {
+        String updatedContent = "Task 1 was updated.";
+        TextArea contentView = lookup("#contentView").query();
+
+        clickOn("Task 1");
+        contentView.setText(updatedContent);
+        clickOn("#saveBtn");
+        clickOn("Task 2");
+        clickOn("Task 1");
+
+        assertEquals("Updated content of Task 1 was not saved", updatedContent, contentView.getText());
     }
 
     @After

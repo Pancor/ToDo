@@ -5,7 +5,7 @@ import java.util.Objects;
 public class Task {
 
     private final String name;
-    private final String content;
+    private String content;
 
     public Task(String name, String content) {
 
@@ -19,6 +19,10 @@ public class Task {
 
     public String getContent() {
         return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
     }
 
     @Override

@@ -21,6 +21,7 @@ dependencies {
     testCompile "org.testfx:testfx-core:4.0.15-alpha"
     testCompile "org.testfx:testfx-junit:4.0.15-alpha"
     testCompile 'junit:junit:4.12'
+    testCompile "org.testfx:openjfx-monocle:jdk-11+26"
 }
 
 //integration test

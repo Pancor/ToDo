@@ -30,8 +30,8 @@ public class App extends Application {
 
         private void setupSceneFromFXML() throws IOException {
             System.out.println(getClass().toString());
-            FXMLLoader loader = new FXMLLoader();
-            getChildren().add(loader.load(new FileInputStream("/home/pawel/projekty/ToDo/src/main/resources/app_view.fxml")));
+            Parent root = FXMLLoader.load(getClass().getResource("/app_view.fxml"));
+            getChildren().add(root);
         }
     }
 
