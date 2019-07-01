@@ -1,41 +1,27 @@
 package pablo.todo;
 
-import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.layout.*;
+import com.nowatel.javafxspring.JavaFXApplication;
+import com.nowatel.javafxspring.NowatelSplashScreen;
 import javafx.stage.Stage;
+import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.stereotype.Component;
+import pablo.todo.main.MainView;
 
-import java.io.FileInputStream;
-import java.io.IOException;
-
-public class App extends Application {
+@Component
+public class App extends JavaFXApplication {
 
     @Override
-    public void start(Stage primaryStage) throws IOException {
-        primaryStage.setTitle("ToDo");
-        Parent root = new ToDoPane();
-        Scene scene = new Scene(root, 700, 400);
-        primaryStage.setScene(scene);
-        primaryStage.show();
+    protected void beforeInitialView(Stage stage, ConfigurableApplicationContext ctx) {
+        super.beforeInitialView(stage, ctx);
+        stage.setTitle("TODO");
     }
 
-    public static class ToDoPane extends StackPane {
-
-        ToDoPane() throws IOException {
-            super();
-            setupSceneFromFXML();
-        }
-
-        private void setupSceneFromFXML() throws IOException {
-            System.out.println(getClass().toString());
-            Parent root = FXMLLoader.load(getClass().getResource("/app_view.fxml"));
-            getChildren().add(root);
-        }
+    @Override
+    public void stop() throws Exception {
+        super.stop();
     }
 
     static void run(String[] args) {
-        launch(args);
+        launch(Main.class, App.class, MainView.class, new NowatelSplashScreen() ,args);
     }
-    }
+}

@@ -1,13 +1,14 @@
-package pablo.todo;
+package pablo.todo.main;
 
+import com.nowatel.javafxspring.FXMLController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import pablo.todo.model.Task;
 
-
-public class AppController {
+@FXMLController
+public class MainController {
 
     @FXML private Button saveBtn;
     @FXML private TextArea contentView;
@@ -22,7 +23,7 @@ public class AppController {
             new Task("Task 3", "Content 3")
     );
 
-    public AppController() { }
+    public MainController() { }
 
     @FXML
     void initialize() {

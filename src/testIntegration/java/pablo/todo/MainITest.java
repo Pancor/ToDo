@@ -1,5 +1,6 @@
 package pablo.todo;
 
+import com.nowatel.javafxspring.GuiTest;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.ListView;
@@ -11,11 +12,17 @@ import javafx.stage.Stage;
 import org.junit.After;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit4.SpringRunner;
 import org.testfx.api.FxToolkit;
 import org.testfx.framework.junit.ApplicationTest;
 import org.testfx.matcher.control.ListViewMatchers;
+import pablo.todo.main.MainView;
 import pablo.todo.model.Task;
 
+import javax.annotation.PostConstruct;
 import java.io.IOException;
 import java.util.concurrent.TimeoutException;
 
@@ -23,7 +30,12 @@ import static org.junit.Assert.*;
 import static org.testfx.api.FxAssert.verifyThat;
 import static org.testfx.matcher.control.LabeledMatchers.hasText;
 
-public class AppITest extends ApplicationTest {
+@RunWith(SpringRunner.class)
+@SpringBootTest
+public class MainITest extends GuiTest {
+
+    @Autowired
+    private MainView mainView;
 
     @BeforeClass
     public static void setupTestEnvironment() {
@@ -39,13 +51,9 @@ public class AppITest extends ApplicationTest {
         }
     }
 
-    @Override
-    public void start(Stage stage) throws IOException {
-        Parent root = new App.ToDoPane();
-        Scene scene = new Scene(root, 700, 400);
-        stage.setScene(scene);
-        stage.show();
-        stage.toFront();
+    @PostConstruct
+    public void initView() throws Exception {
+        init(mainView);
     }
 
     @Test
@@ -131,6 +139,9 @@ public class AppITest extends ApplicationTest {
     public void updateTaskContentThenCheckIfChangesWereSaved() {
         String updatedContent = "Task 1 was updated.";
         TextArea contentView = lookup("#contentView").query();
+        ListView<Task> tasksView = lookup("#tasksView").query();
+
+        Task newTask = new Task("New task", "");
 
         clickOn("Task 1");
         contentView.setText(updatedContent);
@@ -138,11 +149,13 @@ public class AppITest extends ApplicationTest {
         clickOn("Task 2");
         clickOn("Task 1");
 
+        assertThat("TasksView does not contain new task", tasksView, ListViewMatchers.hasListCell(newTask));
         assertEquals("Updated content of Task 1 was not saved", updatedContent, contentView.getText());
     }
 
     @After
     public void tearDown() throws TimeoutException {
+
         FxToolkit.hideStage();
         release(new KeyCode[] {});
         release(new MouseButton[] {});
