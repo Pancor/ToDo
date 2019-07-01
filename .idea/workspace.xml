@@ -2,17 +2,15 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c915f2b8-f81d-415d-bd36-4de5b0961c8d" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/pablo/todo/AppController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/app_view.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/pablo/todo/model/Task.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/4.10.3/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.10.3/fileHashes/fileHashes.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/4.10.3/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.10.3/fileHashes/fileHashes.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/4.10.3/taskHistory/taskHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.10.3/taskHistory/taskHistory.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/4.10.3/taskHistory/taskHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.10.3/taskHistory/taskHistory.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/pablo/todo/App.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/pablo/todo/App.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/pablo/todo/AppController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/pablo/todo/AppController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/testIntegration/java/pablo/todo/AppITest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/testIntegration/java/pablo/todo/AppITest.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
@@ -101,11 +99,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/pablo/todo/App.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="461">
-              <caret line="50" column="5" lean-forward="true" selection-start-line="50" selection-start-column="5" selection-end-line="50" selection-end-column="5" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
+            <state relative-caret-position="105">
+              <caret line="15" column="62" selection-start-line="15" selection-start-column="62" selection-end-line="15" selection-end-column="62" />
             </state>
           </provider>
         </entry>
@@ -113,12 +108,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/testIntegration/java/pablo/todo/AppITest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="193">
-              <caret line="43" column="50" lean-forward="true" selection-start-line="43" selection-start-column="50" selection-end-line="43" selection-end-column="50" />
-              <folding>
-                <element signature="e#1121#1122#0" expanded="true" />
-                <element signature="e#1185#1186#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="283">
+              <caret line="94" selection-start-line="94" selection-end-line="94" />
             </state>
           </provider>
         </entry>
@@ -132,26 +123,33 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/resources/app_view.fxml">
-          <provider selected="true" editor-type-id="JavaFX-Scene-Builder" />
           <provider editor-type-id="text-editor">
             <state relative-caret-position="375">
-              <caret line="25" lean-forward="true" selection-start-line="25" selection-end-line="25" />
+              <caret line="25" selection-start-line="25" selection-end-line="25" />
+            </state>
+          </provider>
+          <provider selected="true" editor-type-id="JavaFX-Scene-Builder" />
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/java/pablo/todo/AppController.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="446">
+              <caret line="75" column="45" selection-start-line="75" selection-start-column="45" selection-end-line="75" selection-end-column="45" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/pablo/todo/AppController.java">
+        <entry file="file://$PROJECT_DIR$/src/main/java/pablo/todo/model/Task.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="881">
-              <caret line="59" column="66" selection-start-line="59" selection-start-column="66" selection-end-line="59" selection-end-column="66" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#649#650#0" expanded="true" />
-                <element signature="e#676#677#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="225">
+              <caret line="19" column="5" selection-start-line="19" selection-start-column="5" selection-end-line="19" selection-end-column="5" />
             </state>
           </provider>
         </entry>
@@ -176,10 +174,11 @@
         <option value="$PROJECT_DIR$/src/main/java/pablo/todo/Main.java" />
         <option value="$PROJECT_DIR$/src/test/java/pablo/todo/AppITest.java" />
         <option value="$PROJECT_DIR$/build.gradle" />
-        <option value="$PROJECT_DIR$/src/main/java/pablo/todo/AppController.java" />
-        <option value="$PROJECT_DIR$/src/main/java/pablo/todo/App.java" />
-        <option value="$PROJECT_DIR$/src/testIntegration/java/pablo/todo/AppITest.java" />
         <option value="$PROJECT_DIR$/src/main/resources/app_view.fxml" />
+        <option value="$PROJECT_DIR$/src/main/java/pablo/todo/App.java" />
+        <option value="$PROJECT_DIR$/src/main/java/pablo/todo/model/Task.java" />
+        <option value="$PROJECT_DIR$/src/testIntegration/java/pablo/todo/AppITest.java" />
+        <option value="$PROJECT_DIR$/src/main/java/pablo/todo/AppController.java" />
       </list>
     </option>
   </component>
@@ -194,8 +193,8 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="PackagesPane" />
       <pane id="Scope" />
+      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -233,6 +232,15 @@
               <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="todo" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="ToDo" type="b2602c69:ProjectViewProjectNode" />
+              <item name="ToDo" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="todo" type="462c0819:PsiDirectoryNode" />
+              <item name="model" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="ToDo" type="b2602c69:ProjectViewProjectNode" />
@@ -459,31 +467,24 @@
       <option name="project" value="LOCAL" />
       <updated>1561722837975</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="More tests">
+      <created>1561729317588</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1561729317588</updated>
+    </task>
+    <task id="LOCAL-00007" summary="Added Controller">
+      <created>1561729424714</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1561729424714</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="Tests_in_'ToDo_testIntegration' - 2019.06.28 at 13h 42m 07s.xml">
-      <configuration name="Tests in 'ToDo.testIntegration'" configurationId="GradleRunConfiguration" />
-    </history-entry>
-    <history-entry file="Tests_in_'ToDo_testIntegration' - 2019.06.28 at 13h 44m 33s.xml">
-      <configuration name="Tests in 'ToDo.testIntegration'" configurationId="GradleRunConfiguration" />
-    </history-entry>
-    <history-entry file="Tests_in_'ToDo_testIntegration' - 2019.06.28 at 13h 49m 53s.xml">
-      <configuration name="Tests in 'ToDo.testIntegration'" configurationId="GradleRunConfiguration" />
-    </history-entry>
-    <history-entry file="Tests_in_'ToDo_testIntegration' - 2019.06.28 at 13h 52m 25s.xml">
-      <configuration name="Tests in 'ToDo.testIntegration'" configurationId="GradleRunConfiguration" />
-    </history-entry>
-    <history-entry file="Tests_in_'ToDo_testIntegration' - 2019.06.28 at 14h 18m 26s.xml">
-      <configuration name="Tests in 'ToDo.testIntegration'" configurationId="GradleRunConfiguration" />
-    </history-entry>
-    <history-entry file="Tests_in_'ToDo_testIntegration' - 2019.06.28 at 14h 19m 16s.xml">
-      <configuration name="Tests in 'ToDo.testIntegration'" configurationId="GradleRunConfiguration" />
-    </history-entry>
-    <history-entry file="ToDo_[integrationTest] - 2019.06.28 at 15h 34m 04s.xml">
-      <configuration name="ToDo [integrationTest]" configurationId="GradleRunConfiguration" />
-    </history-entry>
     <history-entry file="ToDo_[integrationTest] - 2019.06.28 at 15h 34m 43s.xml">
       <configuration name="ToDo [integrationTest]" configurationId="GradleRunConfiguration" />
     </history-entry>
@@ -493,11 +494,32 @@
     <history-entry file="ToDo_[integrationTest] - 2019.06.28 at 15h 36m 06s.xml">
       <configuration name="ToDo [integrationTest]" configurationId="GradleRunConfiguration" />
     </history-entry>
+    <history-entry file="ToDo_[integrationTest] - 2019.06.28 at 15h 39m 43s.xml">
+      <configuration name="ToDo [integrationTest]" configurationId="GradleRunConfiguration" />
+    </history-entry>
+    <history-entry file="ToDo_[integrationTest] - 2019.06.28 at 15h 43m 27s.xml">
+      <configuration name="ToDo [integrationTest]" configurationId="GradleRunConfiguration" />
+    </history-entry>
+    <history-entry file="ToDo_[integrationTest] - 2019.06.28 at 15h 52m 26s.xml">
+      <configuration name="ToDo [integrationTest]" configurationId="GradleRunConfiguration" />
+    </history-entry>
+    <history-entry file="ToDo_[integrationTest] - 2019.06.28 at 15h 55m 05s.xml">
+      <configuration name="ToDo [integrationTest]" configurationId="GradleRunConfiguration" />
+    </history-entry>
+    <history-entry file="ToDo_[integrationTest] - 2019.06.28 at 15h 56m 58s.xml">
+      <configuration name="ToDo [integrationTest]" configurationId="GradleRunConfiguration" />
+    </history-entry>
+    <history-entry file="ToDo_[integrationTest] - 2019.07.01 at 09h 00m 29s.xml">
+      <configuration name="ToDo [integrationTest]" configurationId="GradleRunConfiguration" />
+    </history-entry>
+    <history-entry file="ToDo_[integrationTest] - 2019.07.01 at 09h 09m 21s.xml">
+      <configuration name="ToDo [integrationTest]" configurationId="GradleRunConfiguration" />
+    </history-entry>
   </component>
   <component name="ToolWindowManager">
     <frame x="1920" y="0" width="1920" height="1080" extended-state="6" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.16061899" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.16221985" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -514,7 +536,7 @@
       <window_info anchor="bottom" id="Terminal" order="7" weight="0.3209746" />
       <window_info anchor="bottom" id="Event Log" order="8" side_tool="true" />
       <window_info anchor="bottom" id="Version Control" order="9" />
-      <window_info anchor="bottom" id="Build" order="10" weight="0.3297062" />
+      <window_info anchor="bottom" id="Build" order="10" weight="0.32944915" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -532,7 +554,8 @@
     <MESSAGE value="Added tests dependencies" />
     <MESSAGE value="Added tests" />
     <MESSAGE value="More tests" />
-    <option name="LAST_COMMIT_MESSAGE" value="More tests" />
+    <MESSAGE value="Added Controller" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added Controller" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/src/main/java/pablo/todo/Main.java">
@@ -559,44 +582,42 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/app_view.fxml">
+      <provider editor-type-id="text-editor">
+        <state relative-caret-position="375">
+          <caret line="25" selection-start-line="25" selection-end-line="25" />
+        </state>
+      </provider>
+      <provider selected="true" editor-type-id="JavaFX-Scene-Builder" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/pablo/todo/model/Task.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="225">
+          <caret line="19" column="5" selection-start-line="19" selection-start-column="5" selection-end-line="19" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/pablo/todo/App.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="461">
-          <caret line="50" column="5" lean-forward="true" selection-start-line="50" selection-start-column="5" selection-end-line="50" selection-end-column="5" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+        <state relative-caret-position="105">
+          <caret line="15" column="62" selection-start-line="15" selection-start-column="62" selection-end-line="15" selection-end-column="62" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/testIntegration/java/pablo/todo/AppITest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="193">
-          <caret line="43" column="50" lean-forward="true" selection-start-line="43" selection-start-column="50" selection-end-line="43" selection-end-column="50" />
-          <folding>
-            <element signature="e#1121#1122#0" expanded="true" />
-            <element signature="e#1185#1186#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="283">
+          <caret line="94" selection-start-line="94" selection-end-line="94" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/pablo/todo/AppController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="881">
-          <caret line="59" column="66" selection-start-line="59" selection-start-column="66" selection-end-line="59" selection-end-column="66" />
+        <state relative-caret-position="446">
+          <caret line="75" column="45" selection-start-line="75" selection-start-column="45" selection-end-line="75" selection-end-column="45" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#649#650#0" expanded="true" />
-            <element signature="e#676#677#0" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/app_view.fxml">
-      <provider selected="true" editor-type-id="JavaFX-Scene-Builder" />
-      <provider editor-type-id="text-editor">
-        <state relative-caret-position="375">
-          <caret line="25" lean-forward="true" selection-start-line="25" selection-end-line="25" />
         </state>
       </provider>
     </entry>

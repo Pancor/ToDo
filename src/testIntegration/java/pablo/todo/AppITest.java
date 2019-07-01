@@ -12,6 +12,7 @@ import org.junit.After;
 import org.junit.Test;
 import org.testfx.api.FxToolkit;
 import org.testfx.framework.junit.ApplicationTest;
+import pablo.todo.model.Task;
 
 import java.io.IOException;
 import java.util.concurrent.TimeoutException;
@@ -55,26 +56,27 @@ public class AppITest extends ApplicationTest {
 
     @Test
     public void insertNewTaskThenVerifyIfNewTaskIsAdded() {
-        ListView<String> tasksView = lookup("#tasksView").query();
+        ListView<Task> tasksView = lookup("#tasksView").query();
         TextField newTaskView = lookup("#newTaskView").query();
-        String newTask = "New task";
+        Task newTask = new Task("New task", "");
 
-        newTaskView.setText(newTask);
+        newTaskView.setText(newTask.getName());
         clickOn("#addBtn");
         boolean isNewTaskCorrectlyAdded = tasksView.getItems().contains(newTask);
         int itemsCount = tasksView.getItems().size();
 
-        assertTrue("Task: " + newTask + "was not added correctly", isNewTaskCorrectlyAdded);
+        assertTrue("Task: " + newTask + " was not added correctly", isNewTaskCorrectlyAdded);
         assertEquals("TasksView should contain 4 elements given: " + itemsCount, 4, itemsCount);
     }
 
     @Test
     public void deleteTaskThenVerifyIfTaskWasDeleted() {
-        ListView<String> tasksView = lookup("#tasksView").query();
+        ListView<Task> tasksView = lookup("#tasksView").query();
+        Task task = new Task("Task 1", "");
 
         tasksView.getSelectionModel().selectFirst();
         clickOn("#deleteBtn");
-        boolean isTask1Deleted = !tasksView.getItems().contains("Task 1");
+        boolean isTask1Deleted = !tasksView.getItems().contains(task);
         int itemsCount = tasksView.getItems().size();
 
         assertTrue("Task 1 was not deleted", isTask1Deleted);
@@ -83,19 +85,19 @@ public class AppITest extends ApplicationTest {
 
     @Test
     public void contentViewShouldContainTaskNameWhenTasksViewElementIsSelected() {
-        ListView<String> tasksView = lookup("#tasksView").query();
+        ListView<Task> tasksView = lookup("#tasksView").query();
         TextArea contentView = lookup("#contentView").query();
 
         clickOn("Task 1");
 
-        String expected = tasksView.getItems().get(0);
+        String expected = tasksView.getItems().get(0).getContent();
         String actual = contentView.getText();
         assertEquals("After selecting tasksView item, contentView should show: " + expected + " but showed: " + actual, expected, actual);
     }
 
     @Test
     public void tryToDeleteItemWithoutSelectingItThenShowAlertDialog() {
-        ListView<String> tasksView = lookup("#tasksView").query();
+        ListView<Task> tasksView = lookup("#tasksView").query();
 
         clickOn("#deleteBtn");
         int itemsCount = tasksView.getItems().size();
@@ -105,7 +107,7 @@ public class AppITest extends ApplicationTest {
 
     @Test
     public void tryToAddItemWithoutSpecifyingNameThenShowAlertDialog() {
-        ListView<String> tasksView = lookup("#tasksView").query();
+        ListView<Task> tasksView = lookup("#tasksView").query();
 
         clickOn("#addBtn");
         int itemsCount = tasksView.getItems().size();

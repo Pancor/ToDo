@@ -6,6 +6,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
+import pablo.todo.model.Task;
 
 
 public class AppController {
@@ -16,8 +17,10 @@ public class AppController {
     @FXML private TextField newTaskView;
     @FXML private Button addBtn;
 
-    private ObservableList<String> tasks = FXCollections.observableArrayList(
-            "Task 1", "Task 2", "Task 3"
+    private ObservableList<Task> tasks = FXCollections.observableArrayList(
+            new Task("Task 1", "Content 1"),
+            new Task("Task 2", "Content 2"),
+            new Task("Task 3", "Content 3")
     );
 
     public AppController() { }
@@ -25,12 +28,23 @@ public class AppController {
     @FXML
     void initialize() {
         tasksView.setItems(tasks);
+        tasksView.setCellFactory(param -> new ListCell<Task>() {
+            @Override
+            protected void updateItem(Task item, boolean empty) {
+                super.updateItem(item, empty);
+                if (item == null) {
+                    setText(null);
+                } else {
+                    setText(item.getName());
+                }
+            }
+        });
     }
 
     @FXML
     private void addTask(ActionEvent actionEvent) {
         if (!newTaskView.getText().isEmpty()) {
-            tasks.add(newTaskView.getText());
+            tasks.add(new Task(newTaskView.getText(), ""));
             newTaskView.setText("");
         } else {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -58,7 +72,7 @@ public class AppController {
 
     @FXML
     private void setContentViewText(MouseEvent arg0) {
-        String text = (String) tasksView.getSelectionModel().getSelectedItem();
-        contentView.setText(text);
+        Task task = (Task) tasksView.getSelectionModel().getSelectedItem();
+        contentView.setText(task.getContent());
     }
 }
