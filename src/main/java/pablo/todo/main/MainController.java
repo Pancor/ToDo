@@ -1,14 +1,22 @@
 package pablo.todo.main;
 
 import com.nowatel.javafxspring.FXMLController;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import org.springframework.beans.factory.annotation.Autowired;
+import pablo.todo.data.TasksRepository;
+import pablo.todo.data.TasksRepositoryImpl;
 import pablo.todo.model.Task;
 
 @FXMLController
 public class MainController {
+
+    @Autowired
+    private TasksRepository tasksRepository;
 
     @FXML private Button saveBtn;
     @FXML private TextArea contentView;
@@ -17,22 +25,16 @@ public class MainController {
     @FXML private TextField newTaskView;
     @FXML private Button addBtn;
 
-    private ObservableList<Task> tasks = FXCollections.observableArrayList(
-            new Task("Task 1", "Content 1"),
-            new Task("Task 2", "Content 2"),
-            new Task("Task 3", "Content 3")
-    );
-
     public MainController() { }
 
     @FXML
     void initialize() {
-        tasksView.setItems(tasks);
+        tasksView.setItems(tasksRepository.getTasks());
         tasksView.setCellFactory(param -> new ListCell<Task>() {
             @Override
             protected void updateItem(Task item, boolean empty) {
                 super.updateItem(item, empty);
-                if (item == null) {
+                if (empty || item == null) {
                     setText(null);
                 } else {
                     setText(item.getName());
@@ -44,7 +46,7 @@ public class MainController {
     @FXML
     private void addTask() {
         if (!newTaskView.getText().isEmpty()) {
-            tasks.add(new Task(newTaskView.getText(), ""));
+            tasksRepository.insertTask(new Task(newTaskView.getText(), ""));
             newTaskView.setText("");
         } else {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -59,7 +61,7 @@ public class MainController {
     private void removeTask() {
         int index = tasksView.getSelectionModel().getSelectedIndex();
         if (index > -1) {
-            tasksView.getItems().remove(index);
+            tasksRepository.deleteTask(index);
             contentView.setText("");
         } else {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -76,7 +78,7 @@ public class MainController {
         Task task = tasksView.getSelectionModel().getSelectedItem();
         String updatedContent = contentView.getText();
         task.setContent(updatedContent);
-        tasks.set(taskIndex, task);
+        tasksRepository.updateTask(taskIndex, task);
     }
 
     @FXML
