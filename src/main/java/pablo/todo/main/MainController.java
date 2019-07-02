@@ -16,7 +16,7 @@ import pablo.todo.model.Task;
 public class MainController {
 
     @Autowired
-    private TasksRepository tasksRepository;
+    private TasksRepositoryImpl tasksRepository;
 
     @FXML private Button saveBtn;
     @FXML private TextArea contentView;
@@ -29,15 +29,16 @@ public class MainController {
 
     @FXML
     void initialize() {
+        tasksRepository.createTasks();
         tasksView.setItems(tasksRepository.getTasks());
-        tasksView.setCellFactory(param -> new ListCell<Task>() {
+        tasksView.setCellFactory(param -> new ListCell<>() {
             @Override
             protected void updateItem(Task item, boolean empty) {
                 super.updateItem(item, empty);
-                if (empty || item == null) {
+                if (item == null) {
                     setText(null);
                 } else {
-                    setText(item.getName());
+                    setText(item.getName().get());
                 }
             }
         });
@@ -84,6 +85,6 @@ public class MainController {
     @FXML
     private void setContentViewText() {
         Task task = tasksView.getSelectionModel().getSelectedItem();
-        contentView.setText(task.getContent());
+        contentView.setText(task.getContent().get());
     }
 }

@@ -13,6 +13,8 @@ public interface TasksRepository {
 
     void deleteTask(int index);
 
+    void createTasks();
+
     ObservableList<Task> getTasks();
 
     void cleanUp();
