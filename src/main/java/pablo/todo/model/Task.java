@@ -19,19 +19,31 @@ public class Task {
     }
 
     public static Callback<Task, Observable[]> extractor() {
-        return (Task task) -> new Observable[]{task.getName(), task.getContent()};
+        return (Task task) -> new Observable[]{task.getName(), task.contentProperty()};
     }
 
     public StringProperty getName() {
         return name;
     }
-
+/*
     public StringProperty getContent() {
         return content;
     }
 
     public void setContent(String content) {
         this.content.setValue(content);
+    }*/
+
+    public String getContent() {
+        return content.get();
+    }
+
+    public StringProperty contentProperty() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content.set(content);
     }
 
     @Override

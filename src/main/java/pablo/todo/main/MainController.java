@@ -16,7 +16,7 @@ import pablo.todo.model.Task;
 public class MainController {
 
     @Autowired
-    private TasksRepositoryImpl tasksRepository;
+    private TasksRepository tasksRepository;
 
     @FXML private Button saveBtn;
     @FXML private TextArea contentView;
@@ -41,6 +41,10 @@ public class MainController {
                     setText(item.getName().get());
                 }
             }
+        });
+        contentView.textProperty().addListener((observable, oldValue, newValue) -> {
+            Task editedTask = tasksView.getSelectionModel().getSelectedItem();
+
         });
     }
 
@@ -85,6 +89,6 @@ public class MainController {
     @FXML
     private void setContentViewText() {
         Task task = tasksView.getSelectionModel().getSelectedItem();
-        contentView.setText(task.getContent().get());
+        contentView.setText(task.getContent());
     }
 }
