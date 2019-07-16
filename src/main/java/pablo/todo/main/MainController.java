@@ -1,15 +1,13 @@
 package pablo.todo.main;
 
 import com.nowatel.javafxspring.FXMLController;
+import javafx.beans.binding.Bindings;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import pablo.todo.data.TasksRepository;
-import pablo.todo.data.TasksRepositoryImpl;
 import pablo.todo.model.Task;
 
 @FXMLController
@@ -42,9 +40,10 @@ public class MainController {
                 }
             }
         });
-        contentView.textProperty().addListener((observable, oldValue, newValue) -> {
-            Task editedTask = tasksView.getSelectionModel().getSelectedItem();
-
+        //contentView.textProperty().bind(Bindings.createStringBinding(() -> tasksView.getSelectionModel().getSelectedItem().getContent(), tasksView.getSelectionModel().selectedItemProperty()));
+        tasksView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue != null)
+                contentView.setText(newValue.getContent());
         });
     }
 
@@ -67,7 +66,7 @@ public class MainController {
         int index = tasksView.getSelectionModel().getSelectedIndex();
         if (index > -1) {
             tasksRepository.deleteTask(index);
-            contentView.setText("");
+            contentView.clear();
         } else {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Select task");
@@ -82,13 +81,9 @@ public class MainController {
         int taskIndex = tasksView.getSelectionModel().getSelectedIndex();
         Task task = tasksView.getSelectionModel().getSelectedItem();
         String updatedContent = contentView.getText();
-        task.setContent(updatedContent);
-        tasksRepository.updateTask(taskIndex, task);
-    }
-
-    @FXML
-    private void setContentViewText() {
-        Task task = tasksView.getSelectionModel().getSelectedItem();
-        contentView.setText(task.getContent());
+        if (updatedContent != null) {
+            task.setContent(updatedContent);
+            tasksRepository.updateTask(taskIndex, task);
+        }
     }
 }

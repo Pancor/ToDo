@@ -2,13 +2,8 @@ package pablo.todo.main;
 
 import com.nowatel.javafxspring.GuiTest;
 import javafx.application.Platform;
-import javafx.scene.control.Cell;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseButton;
-import javafx.scene.text.TextFlow;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -17,28 +12,25 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.testfx.api.FxRobot;
 import org.testfx.api.FxToolkit;
-import org.testfx.assertions.api.AbstractListViewAssert;
-import org.testfx.assertions.api.ListViewAssert;
-import org.testfx.matcher.base.NodeMatchers;
-import org.testfx.matcher.control.ListViewMatchers;
-import org.testfx.matcher.control.TextFlowMatchers;
 import org.testfx.matcher.control.TextInputControlMatchers;
-import org.testfx.matcher.control.TextMatchers;
-import org.testfx.service.query.NodeQuery;
-import org.xmlunit.diff.NodeMatcher;
+import org.testfx.util.DebugUtils;
+import org.testfx.util.NodeQueryUtils;
+import org.testfx.util.WaitForAsyncUtils;
 import pablo.todo.data.TasksRepository;
 import pablo.todo.model.Task;
 
 import javax.annotation.PostConstruct;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
-import static org.junit.Assert.*;
 import static org.hamcrest.CoreMatchers.not;
-import static org.testfx.assertions.api.Assertions.*;
 import static org.testfx.api.FxAssert.verifyThat;
 import static org.testfx.matcher.control.LabeledMatchers.hasText;
+import static org.testfx.matcher.control.ListViewMatchers.hasItems;
+import static org.testfx.matcher.control.ListViewMatchers.hasListCell;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -58,6 +50,7 @@ public class MainITest extends GuiTest {
             if (tasksRepository.getTasks().size() == 0)
                 tasksRepository.createTasks();
              }, Platform::runLater).join();
+        WaitForAsyncUtils.waitForFxEvents();
     }
 
     @BeforeClass
@@ -91,7 +84,7 @@ public class MainITest extends GuiTest {
 
     @Test
     public void tasksListShouldContainThreeTasks() {
-        verifyThat("#tasksView", ListViewMatchers.hasItems(3));
+        verifyThat("#tasksView", hasItems(3));
     }
 
     @Test
@@ -101,8 +94,8 @@ public class MainITest extends GuiTest {
         clickOn("#newTaskView").write(newTask.getName().get());
         clickOn("#addBtn");
 
-        verifyThat("#tasksView", ListViewMatchers.hasItems(4));
-        verifyThat("#tasksView", ListViewMatchers.hasListCell(newTask));
+        verifyThat("#tasksView", hasItems(4));
+        verifyThat("#tasksView", hasListCell(newTask));
     }
 
     @Test
@@ -112,8 +105,8 @@ public class MainITest extends GuiTest {
         clickOn("Task 1");
         clickOn("#deleteBtn");
 
-        verifyThat("#tasksView", ListViewMatchers.hasItems(2));
-        verifyThat("#tasksView", not(ListViewMatchers.hasListCell(taskToDelete)));
+        verifyThat("#tasksView", hasItems(2), DebugUtils.informedErrorMessage(this));
+        verifyThat("#tasksView", not(hasListCell(taskToDelete)));
     }
 
     @Test
@@ -127,18 +120,18 @@ public class MainITest extends GuiTest {
     public void tryToDeleteItemWithoutSelectingItThenShowAlertDialog() {
         clickOn("#deleteBtn");
 
-        verifyThat("#tasksView", ListViewMatchers.hasItems(3));
+        verifyThat("#tasksView", hasItems(3));
     }
 
     @Test
     public void tryToAddItemWithoutSpecifyingNameThenShowAlertDialog(){
         clickOn("#addBtn");
 
-        verifyThat("#tasksView", ListViewMatchers.hasItems(3));
+        verifyThat("#tasksView", hasItems(3));
     }
 
     @Test
-    public void updateTaskContentThenCheckIfChangesWereSaved() throws InterruptedException {
+    public void updateTaskContentThenCheckIfChangesWereSaved() {
         String updatedContent = " was updated.";
         String expectedContent = "Content 1" + updatedContent;
 

@@ -25,14 +25,6 @@ public class Task {
     public StringProperty getName() {
         return name;
     }
-/*
-    public StringProperty getContent() {
-        return content;
-    }
-
-    public void setContent(String content) {
-        this.content.setValue(content);
-    }*/
 
     public String getContent() {
         return content.get();
