@@ -2,6 +2,7 @@ package pablo.todo.main;
 
 import com.nowatel.javafxspring.GuiTest;
 import javafx.application.Platform;
+import javafx.scene.Node;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseButton;
 import org.junit.After;
@@ -12,7 +13,9 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.testfx.api.FxRobot;
 import org.testfx.api.FxToolkit;
+import org.testfx.assertions.api.Assertions;
 import org.testfx.matcher.control.TextInputControlMatchers;
 import org.testfx.util.DebugUtils;
 import org.testfx.util.WaitForAsyncUtils;
@@ -23,8 +26,12 @@ import javax.annotation.PostConstruct;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.TimeoutException;
 
+import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.not;
+import static org.junit.Assert.assertTrue;
 import static org.testfx.api.FxAssert.verifyThat;
+import static org.testfx.assertions.api.Assertions.assertThat;
+import static org.testfx.matcher.base.NodeMatchers.isVisible;
 import static org.testfx.matcher.control.LabeledMatchers.hasText;
 import static org.testfx.matcher.control.ListViewMatchers.hasItems;
 import static org.testfx.matcher.control.ListViewMatchers.hasListCell;
@@ -117,11 +124,29 @@ public class MainITest extends GuiTest {
     public void tryToDeleteItemWithoutSelectingItThenShowAlertDialog() {
         clickOn("#deleteBtn");
 
+        FxRobot alertDialog = targetWindow("Select task");
+        verifyThat(alertDialog.lookup("Error"), isVisible());
+        verifyThat(alertDialog.lookup("You have to select task to delete."), isVisible());
+    }
+
+    @Test
+    public void tryToDeleteItemWithoutSelectingItThenNoItemShouldBeRemoved() {
+        clickOn("#deleteBtn");
+
         verifyThat("#tasksView", hasItems(3));
     }
 
     @Test
     public void tryToAddItemWithoutSpecifyingNameThenShowAlertDialog(){
+        clickOn("#addBtn");
+
+        FxRobot alertDialog = targetWindow("Empty task");
+        verifyThat(alertDialog.lookup("Error"), isVisible());
+        verifyThat(alertDialog.lookup("You can't add task without text."), isVisible());
+    }
+
+    @Test
+    public void tryToAddItemWithoutSpecifyingNameThenNoTaskShouldBeAdded() {
         clickOn("#addBtn");
 
         verifyThat("#tasksView", hasItems(3));
