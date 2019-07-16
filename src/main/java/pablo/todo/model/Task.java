@@ -12,6 +12,10 @@ public class Task {
     private final StringProperty name;
     private StringProperty content;
 
+    public Task(String name) {
+        this(name, "");
+    }
+
     public Task(String name, String content) {
 
         this.name = new SimpleStringProperty(name);

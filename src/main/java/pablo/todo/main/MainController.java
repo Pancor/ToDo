@@ -1,9 +1,6 @@
 package pablo.todo.main;
 
 import com.nowatel.javafxspring.FXMLController;
-import javafx.beans.binding.Bindings;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,18 +37,22 @@ public class MainController {
                 }
             }
         });
-        //contentView.textProperty().bind(Bindings.createStringBinding(() -> tasksView.getSelectionModel().getSelectedItem().getContent(), tasksView.getSelectionModel().selectedItemProperty()));
         tasksView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null)
                 contentView.setText(newValue.getContent());
         });
+
+        addBtn.setOnAction(event -> addTask());
+        deleteBtn.setOnAction(event -> deleteTask());
+        saveBtn.setOnAction(event -> saveChanges());
     }
 
-    @FXML
+
     private void addTask() {
         if (!newTaskView.getText().isEmpty()) {
-            tasksRepository.insertTask(new Task(newTaskView.getText(), ""));
-            newTaskView.setText("");
+            Task newTask = new Task(newTaskView.getText());
+            tasksRepository.insertTask(newTask);
+            newTaskView.clear();
         } else {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Empty task");
@@ -61,8 +62,7 @@ public class MainController {
         }
     }
 
-    @FXML
-    private void removeTask() {
+    private void deleteTask() {
         int index = tasksView.getSelectionModel().getSelectedIndex();
         if (index > -1) {
             tasksRepository.deleteTask(index);
@@ -76,7 +76,6 @@ public class MainController {
         }
     }
 
-    @FXML
     private void saveChanges() {
         int taskIndex = tasksView.getSelectionModel().getSelectedIndex();
         Task task = tasksView.getSelectionModel().getSelectedItem();

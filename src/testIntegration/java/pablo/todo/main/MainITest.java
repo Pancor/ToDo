@@ -12,18 +12,15 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
-import org.testfx.api.FxRobot;
 import org.testfx.api.FxToolkit;
 import org.testfx.matcher.control.TextInputControlMatchers;
 import org.testfx.util.DebugUtils;
-import org.testfx.util.NodeQueryUtils;
 import org.testfx.util.WaitForAsyncUtils;
 import pablo.todo.data.TasksRepository;
 import pablo.todo.model.Task;
 
 import javax.annotation.PostConstruct;
 import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
 import static org.hamcrest.CoreMatchers.not;
@@ -89,7 +86,7 @@ public class MainITest extends GuiTest {
 
     @Test
     public void insertNewTaskThenVerifyIfNewTaskIsAdded() {
-        Task newTask = new Task("New task", "");
+        Task newTask = new Task("New task");
 
         clickOn("#newTaskView").write(newTask.getName().get());
         clickOn("#addBtn");
@@ -100,7 +97,7 @@ public class MainITest extends GuiTest {
 
     @Test
     public void deleteTaskThenVerifyIfTaskWasDeleted() {
-        Task taskToDelete = new Task("Task 1", "");
+        Task taskToDelete = new Task("Task 1");
 
         clickOn("Task 1");
         clickOn("#deleteBtn");
