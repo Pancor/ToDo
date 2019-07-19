@@ -1,5 +1,7 @@
 package pablo.todo.model;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import javafx.beans.Observable;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
@@ -7,23 +9,38 @@ import javafx.util.Callback;
 
 import java.util.Objects;
 
+@JsonDeserialize(using = TaskDeserializer.class)
+@JsonSerialize(using = TaskSerializer.class)
 public class Task {
 
-    private final StringProperty name;
-    private StringProperty content;
+    private int id;
+    private final StringProperty name = new SimpleStringProperty();
+    private StringProperty content = new SimpleStringProperty();
+
+    public Task() {
+        super();
+    }
 
     public Task(String name) {
-        this(name, "");
+        this(0, name, "");
     }
 
     public Task(String name, String content) {
+        this(0, name, content);
+    }
 
-        this.name = new SimpleStringProperty(name);
-        this.content = new SimpleStringProperty(content);
+    public Task(int id, String name, String content) {
+        this.id = id;
+        this.name.setValue(name);
+        this.content.setValue(content);
     }
 
     public static Callback<Task, Observable[]> extractor() {
         return (Task task) -> new Observable[]{task.getName(), task.contentProperty()};
+    }
+
+    public int getId() {
+        return id;
     }
 
     public StringProperty getName() {

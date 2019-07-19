@@ -3,17 +3,19 @@ package pablo.todo.data;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 import pablo.todo.model.Task;
 
 import java.util.List;
 
 @Service
-public class TasksRepositoryImpl implements TasksRepository {
+@Profile("local")
+public class LocalTasksRepositoryImpl implements TasksRepository {
 
     private ObservableList<Task> tasks;
 
-    public TasksRepositoryImpl() {
+    public LocalTasksRepositoryImpl() {
         tasks = FXCollections.observableArrayList(Task.extractor());
     }
 
